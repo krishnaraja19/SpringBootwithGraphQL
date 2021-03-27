@@ -1,0 +1,48 @@
+schema {
+	query: Query,
+	mutation: Mutation,
+	subscription:Subscription
+	}
+
+type Product {
+	productId: ID!,
+	name: String,
+	expiryDate:String,
+	mfgDate:String,
+	brandId:Int,
+	brand: Brand
+
+	}
+
+type Brand {
+	brandId:ID,
+	name: String,
+	startsAt: String,
+	rating: String
+	
+}
+
+input ProductMutationInput{
+	productId: ID,
+	name: String,
+	expiryDate:String,
+	mfgDate:String,
+	brandId:Int,
+}
+
+type Query {
+	getAllProducts: [Product],
+	getProductById(productId:Int): Product,
+	getAllBrands:[Brand]
+	}
+
+type Mutation{
+	addNewProduct(name:String,expiryDate:String,mfgDate:String,brandId:Int): Product!
+	addNewProductByInputObject(input:ProductMutationInput):Product!
+	updateProductById(productId:Int,name:String): Product,
+	addNewBrand(name:String,startsAt:String,rating:String): Brand!
+	
+}
+type Subscription{
+    onProductUpdate(id:Int):Product
+}
